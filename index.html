@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Pomodoro Timer</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <div id="app">
+
+    <div class="mode-tabs">
+      <button class="mode-btn active" id="btn-focus">Foco</button>
+      <button class="mode-btn" id="btn-break">Descanso</button>
+    </div>
+
+    <div class="clock-wrap">
+      <svg id="ring-svg" viewBox="0 0 240 240">
+        <circle cx="120" cy="120" r="108" fill="none" stroke="#111" stroke-width="8"/>
+        <circle
+          id="progress-ring"
+          cx="120" cy="120" r="108"
+          fill="none"
+          stroke="#00e676"
+          stroke-width="8"
+          stroke-linecap="round"
+          stroke-dasharray="678.6"
+          stroke-dashoffset="0"
+          transform="rotate(-90 120 120)"
+        />
+      </svg>
+      <div class="clock-center">
+        <div id="time-display">25:00</div>
+        <div id="phase-label">foco</div>
+      </div>
+    </div>
+
+    <div class="controls">
+      <button class="ctrl-btn" id="restart-btn" aria-label="Reiniciar">↺</button>
+      <button id="play-btn" aria-label="Iniciar/Pausar">
+        <i class="ti ti-player-play" id="play-icon"></i>
+      </button>
+      <button class="ctrl-btn" id="skip-btn" aria-label="Pular fase">⏭</button>
+    </div>
+
+    <div class="settings">
+      <div class="setting-group">
+        <label>Foco (min)</label>
+        <div class="setting-row">
+          <button class="adj-btn" id="focus-down">−</button>
+          <span class="setting-val" id="focus-val">25</span>
+          <button class="adj-btn" id="focus-up">+</button>
+        </div>
+      </div>
+
+      <div class="setting-group">
+        <label>Descanso (min)</label>
+        <div class="setting-row">
+          <button class="adj-btn" id="break-down">−</button>
+          <span class="setting-val" id="break-val">5</span>
+          <button class="adj-btn" id="break-up">+</button>
+        </div>
+      </div>
+    </div>
+
+    <div id="session-count">Sessões concluídas: <span id="sessions">0</span></div>
+
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
