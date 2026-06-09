@@ -1,3 +1,25 @@
+/* ── Alarme sonoro (Web Audio API) ── */
+function playAlarm() {
+  const ctx = new (window.AudioContext || window.webkitAudioContext)();
+
+  const beeps = [0, 0.35, 0.7];
+  beeps.forEach((delay) => {
+    const osc  = ctx.createOscillator();
+    const gain = ctx.createGain();
+
+    osc.connect(gain);
+    gain.connect(ctx.destination);
+
+    osc.type = 'sine';
+    osc.frequency.setValueAtTime(880, ctx.currentTime + delay);
+
+    gain.gain.setValueAtTime(0.6, ctx.currentTime + delay);
+    gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + delay + 0.28);
+
+    osc.start(ctx.currentTime + delay);
+    osc.stop(ctx.currentTime + delay + 0.28);
+  });
+}
 /* ── Constantes ── */
 const CIRCUMFERENCE = 2 * Math.PI * 108; // ~678.6
 
@@ -71,11 +93,17 @@ function tick() {
     clearInterval(interval);
     running = false;
     playIcon.className = 'ti ti-player-play';
+    playAlarm();
 
     if (mode === 'focus') {
       sessions++;
       sessionCount.textContent = sessions;
       setMode('break');
+      setTimeout(() => {
+        interval = setInterval(tick, 1000);
+        running  = true;
+        playIcon.className = 'ti ti-player-pause';
+      }, 1000);
     } else {
       setMode('focus');
     }
